@@ -1,0 +1,24 @@
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        if len(nums) == 1:
+            return nums[0]
+        
+        def hrI(nums):
+            n = len(nums)
+            dp = [-1]*n
+            dp[0] = nums[0]
+            if n==1:
+                return dp[0]
+                
+            dp[1] = max(nums[0], nums[1])
+            for i in range(2, n):
+                pick = nums[i] + dp[i-2]
+                notpick = 0 + dp[i-1]
+                
+                dp[i] = max(pick,notpick)
+            
+            return dp[n-1]
+        
+        t1=hrI(nums[1:])
+        t2=hrI(nums[:-1])
+        return max(t1, t2)
